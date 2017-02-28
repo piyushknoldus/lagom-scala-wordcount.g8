@@ -2,6 +2,7 @@ Lagom-Spike Using Scala
 
 Building Scala application with Lagom framework.
 
+Test
 This will be a microservice based Kafka Producer/Consumer application which take and communicate data in kafka and persist events in Cassandra Db.
 The POC consists of 4 microservices , pair of which takes data from rest-api points and other pair takes and consume data from twitter .
 Here, Cassandra and Kakfa are needed to be install externally.
