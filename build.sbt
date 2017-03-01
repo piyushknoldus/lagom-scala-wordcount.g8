@@ -1,4 +1,4 @@
-import scoverage.ScoverageKeys.coverageFailOnMinimum
+import de.johoop.cpd4sbt.CopyPasteDetector
 
 organization in ThisBuild := "com.knoldus"
 
@@ -17,6 +17,7 @@ lazy val `lagom-spike` = (project in file("."))
 
 
 lazy val `producer-api` = (project in file("producer-api"))
+  .enablePlugins(CopyPasteDetector)
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi
@@ -24,7 +25,7 @@ lazy val `producer-api` = (project in file("producer-api"))
   )
 
 lazy val `producer-impl` = (project in file("producer-impl"))
-  .enablePlugins(LagomScala)
+  .enablePlugins(LagomScala,CopyPasteDetector)
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslPersistenceCassandra,
@@ -41,6 +42,7 @@ lazy val `producer-impl` = (project in file("producer-impl"))
   .dependsOn(`producer-api`)
 
 lazy val `consumer-api` = (project in file("consumer-api"))
+  .enablePlugins(CopyPasteDetector)
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslApi
@@ -48,7 +50,7 @@ lazy val `consumer-api` = (project in file("consumer-api"))
   )
 
 lazy val `consumer-impl` = (project in file("consumer-impl"))
-  .enablePlugins(LagomScala)
+  .enablePlugins(LagomScala,CopyPasteDetector)
   .settings(
     libraryDependencies ++= Seq(
       lagomScaladslPersistenceCassandra,
@@ -73,11 +75,12 @@ coverageExcludedPackages in `producer-impl` :=
 """sample.helloworld.impl.HelloLoader""".stripMargin
 // End => scoverage exludes files configuration according to projects
 
-
+/**
+  * Uncomment the below lines if want to use external cassandra and kafka
+  */
+/*
 lagomCassandraEnabled in ThisBuild := false
-
 lagomUnmanagedServices in ThisBuild := Map("cas_native" -> "http://localhost:9042")
-
 lagomKafkaEnabled in ThisBuild := false
-
 lagomKafkaAddress in ThisBuild := "localhost:9092"
+*/

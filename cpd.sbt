@@ -5,13 +5,12 @@ import de.johoop.cpd4sbt.ReportType.XML
 // Invocation: sbt cpd
 // See: https://github.com/sbt/cpd4sbt
 //------------------------------------
-
 enablePlugins(CopyPasteDetector)
 
 cpdReportType := XML
 
 cpdReportName := "cpd.xml"
 
-cpdTargetPath := target(_ / "cpd").value
+cpdTargetPath := target(_/"cpd").value
 
 cpdLanguage := Language.Scala

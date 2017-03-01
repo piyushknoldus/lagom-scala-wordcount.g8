@@ -5,17 +5,12 @@ import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
 import com.lightbend.lagom.scaladsl.broker.kafka.LagomKafkaComponents
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.lightbend.lagom.scaladsl.persistence.cassandra.CassandraPersistenceComponents
-import com.lightbend.lagom.scaladsl.playjson.{JsonSerializer, JsonSerializerRegistry}
 import com.lightbend.lagom.scaladsl.server.{LagomApplication, LagomApplicationContext, LagomApplicationLoader, LagomServer}
 import com.softwaremill.macwire._
 import play.api.libs.ws.ahc.AhcWSComponents
 import sample.helloworld.api.HelloService
-import sample.helloworld.impl.HelloSerializerRegistry
 import sample.helloworldconsumer.api.HelloConsumerService
-import sample.helloworldconsumer.api.models.WordCount
 import sample.helloworldconsumer.impl.repositories.MessageRepository
-
-
 
 class HelloConsumerLoader extends LagomApplicationLoader {
 
@@ -43,14 +38,13 @@ abstract class HelloConsumerApplication(context: LagomApplicationContext)
   lazy val helloService = serviceClient.implement[HelloService]
 
   lazy val messageRepository = wire[MessageRepository]
+
   // Register the JSON serializer registry
   override lazy val jsonSerializerRegistry = HelloConsumerSerializerRegistry
 
   // Register the Message persistent entity
-  //persistentEntityRegistry.register(wire[HelloEntity])
+   persistentEntityRegistry.register(wire[MessageEntity])
 
-  persistentEntityRegistry.register(wire[MessageEntity])
-  //wire[HelloConsumerServiceImpl]
   readSide.register(wire[MessageEventProcessor])
 }
 
