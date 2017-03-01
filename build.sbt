@@ -71,9 +71,11 @@ coverageExcludedPackages in `consumer-impl` :=
 
 coverageExcludedPackages in `producer-impl` :=
 """sample.helloworld.impl.HelloLoader""".stripMargin
+
 // End => scoverage exludes files configuration according to projects
 
 
+/*
 lagomCassandraEnabled in ThisBuild := false
 
 lagomUnmanagedServices in ThisBuild := Map("cas_native" -> "http://localhost:9042")
@@ -81,3 +83,4 @@ lagomUnmanagedServices in ThisBuild := Map("cas_native" -> "http://localhost:904
 lagomKafkaEnabled in ThisBuild := false
 
 lagomKafkaAddress in ThisBuild := "localhost:9092"
+*/
