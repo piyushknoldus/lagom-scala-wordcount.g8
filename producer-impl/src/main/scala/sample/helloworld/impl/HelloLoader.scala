@@ -3,9 +3,8 @@ package sample.helloworld.impl
 /**
   * Created by knoldus on 16/2/17.
   */
-import com.lightbend.lagom.scaladsl.api.ServiceLocator
-import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
 import com.lightbend.lagom.scaladsl.broker.kafka.LagomKafkaComponents
+import com.lightbend.lagom.scaladsl.client.ConfigurationServiceLocatorComponents
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.lightbend.lagom.scaladsl.persistence.cassandra.CassandraPersistenceComponents
 import com.lightbend.lagom.scaladsl.server._
@@ -16,8 +15,7 @@ import sample.helloworld.api.HelloService
 class HelloLoader extends LagomApplicationLoader {
 
   override def load(context: LagomApplicationContext): LagomApplication =
-    new HelloApplication(context) {
-      override def serviceLocator: ServiceLocator = NoServiceLocator
+    new HelloApplication(context) with ConfigurationServiceLocatorComponents{
     }
 
   override def loadDevMode(context: LagomApplicationContext): LagomApplication =
